@@ -1,0 +1,742 @@
+npx is an npm package runner which install when we install node.
+
+2 ways to incorporate React into your project:
+1). npx create-react-app project_name
+    npx package runner
+
+2). npm install create-react-app -g
+    create-react-app project_name
+
+we don't want to install globally and don't want to update it again and again so will prefer npx commands to use.
+
+Component Types:
+Stateless Functional Component 
+	->are JS Functions
+		eg: function Welcome(props){
+			return <h1>Hello, {props.name}</h1>;
+		    }
+Stateful Class Component
+	->class extending Component class
+	they must consider Render method returning HTML
+		eg: class Welcome extends React.component{
+			render(){
+			  return <h1>Hello, {this.props.name}</h1>;
+			}
+		    }
+
+__________________________________________________________
+Components naming we'll use PascalCase convention.
+
+functional components are just JavaScript Functions, they can receive optionally an object of properties (props) and return HTML(JSX).
+
+while working with function component need to import:
+import React from 'react'
+
+component folder in src folder.
+export these components and import in app.js (as it is the root file where the program starts).
+
+so for the component to be exported we can export like:
+export default ComponentName;
+
+and import in app.js like;
+import ComponentName from "./components/ComponentName"
+
+although writing normal JS functions 
+function Greet(){
+	return <h1>Hello Nandini</h1> 
+}
+is ok, 
+
+but suggested to use ES6 errow functions Syntax;
+const Greet = () => <h1>Hello Nandini</h1>
+(syntax of Arrow function is more concise and we'll check the more advantages later)
+
+-->> Exporting and Importing of Components
+There are two types of export basically:
+default and named export.
+
+so default export means
+while importing the component in app.js file you can give it any name like:
+import MyComponent from "./components/Greet"
+and return the same in div tag from render method of class component in app.js file 
+as:
+class App extends Component{
+	render() {
+	  return {
+		<div className = "App">
+		<MyComponent />
+		</div>
+	  }
+	}
+}
+
+Named Export:
+eg; export const Greet = () => <h1>Hello Nandini</h1>
+but importing as:
+import {Greet} from "./components/Greet";
+__________________________________________________________________
+Class Components 
+	are basically ES6 classes
+
+Similar to functional component a class component also can optionally receive properties (props) as input and return HTML(JSX).
+Apart from props, a class component can also maintain private internal state and in simpler words it can maintain some information which is private to that component and use that information to describe the user interface.
+
+for class component:
+import React, {Component} from 'react'
+
+(download some ES6 snippets to use imr, imrc short cuts to import react and these things to our components)
+
+Comparing Functional and Class Components
+
+Functional components are simple function receiving props and returning  a declaration.
+1st Advantage of using functional component is Absence of "this" keyword (this keyword is difficult for beginners -- so functional component didn't use it)
+2nd Advantage is you will be forced to think of a solution withour having to use state ( if you have a number of components and each with their own private state, maintenance and debugging your application is kind of difficult, Functional component tend to be without any complicated logic and are mainly responsible for the user interface that's why functional components also known as *stateless components*, *dumb components* or *presentational components*)
+
+Class component (CC) are More feature rich
+CC can maintain their own private data (as state)
+CC can contain Complex UI logic and most importantly they provide lifecycle hooks.
+CC also known as *stateful components*, *smart components* or *container components*
+___________________________________________________________________________
+
+New Feature with new React 16.7.0-alpha
+
+This new feature which kind of contradicts what we've learnt about functional versus state components.
+
+so from this version onwards (2018 React Conference) without writing a class you can use state and Hooks are a new feature proposal that let you use state and other React features without writing a class.
+
+(so as we discussed previously functional components are stateless, we'll take that statement back)
+
+so state and hooks which were exclusive to class components can now be used in Functional Components as well.
+
+Hooks
+_____
+No breaking changes.
+Completely opt-in & 100% backward-compatible.
+so now Component Types- Functional Components and Class Components
+
+So we'ld understand, Using state, lifecycle methods and 'this' binding.
+________________________________________________________________________
+
+JSX
+
+JavaScript XML (JSX) - Extension to the JavaScript language syntax.
+Write XML-like code for elements and components.
+JSX tags have a tag name, attributes, and children.
+JSX is not a necessity to write React applications.
+JSX makes your react code simpler and elgant.
+JSX ultimately transpiles to pure JavaScript which is understood by the browsers.
+___________
+example:
+JSX version of Hello Component:
+import React from 'react';
+
+const Hello = () => {
+    return (
+        <div>
+            <h1>Hello Nandini!</h1>
+        </div>
+    )
+}
+
+export default Hello
+_______________
+JS version of Hello Component:
+React provides a method name as createElement (receives 3 parameters, first parameter is the tag, second is optional parameters and third is string.
+example:
+import React from 'react';
+
+const Hello = () => {
+    return React.createElement("div", null, React.createElement("h1", null, 'Hello Nandini!!'))
+}
+
+export default Hello;
+
+Second parameter of createElement method is basically an object of key-value pair that will be applied to the element.
+  return React.createElement(
+        'div',
+    {id: 'helo', className: 'dummyClass'},  //as in JS class is a reserved keyword so we use ClassName instead of class
+    React.createElement('h1', null, 'Hello Nandini!!!')
+    )
+
+Basically each JSX element is just syntactic trigger for calling React.createElement and that is why importing React library is mandatory.
+JSX translates into React.createElement which in turn uses the React library.
+
+JSX differences
+Class replaced by className
+for replaced by htmlFor
+camelCase property naming convention
+	onclick -> onClick
+	tabindex -> tabIndex
+
+Follow for New updates:
+(https://github.com/facebook/react/issues/13525)
+_________________________________________________________
+Props
+____
+Components are reusable 
+example: reusing Greet Component to greet multi people
+intention is to pass name from app component to Greet component and render that name in the browser.
+to specify props for a component we specify them as attributes.
+
+1st thing is pass props to component 
+2nd thing is use 'this' parameter in the function body.
+
+eg:
+export const Greet = (props) => {
+console.log(props);
+return <h1>Hello {props.name}</h1>  //curly braces (feature of JSX)to evaulate JSX expressions.
+}
+
+
+eg:
+app.js file:
+function App() {
+  return (
+    <div className="App">
+      <Greet name="Bruce Lee" profession="Martial Artist and Actor"/>
+      <Greet name="Taylor Swift" profession="American Singer and writer"/>
+      <Greet name="Ariana Grande" profession="Singer"/>
+      {/* <MyGreetComponent /> */}
+      <Welcome/>
+      <Hello/>
+    </div>
+  );
+}
+
+Greet component:
+export const Greet = (props) => {
+console.log(props);
+return <h1>Hello {props.name}, you're great {props.profession} </h1>
+}
+
+_________________________
+if you have to pass dynamic HTML content, pass in between component tags and in component defintion simply render the content using props.children.
+
+<Greet name="Bruce Lee" profession="Martial Artist and Actor"><p>This is children props</p> </Greet>
+as we can return only one HTML element from the component
+so enclosing both in div tag as:
+return (
+    <div>
+        <h1>Hello {props.name}, you're great {props.profession} </h1>
+        {props.children}
+    </div>
+ ) 
+______________
+in Class Component , unlike the functional component where we specify  the props parameter, in Class Component the properties are available through this.props which is reserved in Class Components.
+
+props are immutable (means there value can't be changes).
+___________________________________________________________________________
+
+Component State in React
+
+props vs state
+
+props get passed to the component, while state is managed within the component.
+Function paramters vs Variables declared in the function body.
+props are immutable , component has full control on the change of state.
+in Functional components props can be accessed with using props paramter and in class component props can be accessed using this.props.
+
+props - Functional Components
+this.props - Class Components
+
+useState Hook - Functional Components
+this.state - Class Components
+
+(props and state holds information that influences UI in the browser)
+
+Now, How state can be used in Class Component?
+
+EXAMPLE scenario: we want a button, subscribe button and when click on the button the text should change to Welcome Visitor! Thank you for subscribing.
+
+as props are immutable so passing this as property won't work here.
+the solution is to use component state.
+1st step is to create state object and initialize it and this step is usually done inside the class constructor.
+
+eg: class Message extends Component {
+
+	constructor(){
+		super()
+		this.state= {
+			message: "Welcome Visitor"
+	}
+	}
+
+//changeMessage method we're calling to alter the state of the component.
+	changeMessage(){
+		this.setState({
+			message: "Thank you for subscribing"
+		})
+	}
+
+2nd step is to bind this state object into render method:
+	render(){
+		return(
+			<div>
+				 <h1> this.state.message </h1>
+				 <button onClick = {() => 					this.changeMessage()}> Subscribe </button>
+			</div>
+		)
+
+So, state is basically an object that is privately maintains inside the component. A state can influence what is rendering inside the browser.State can be changes with in the component.
+________________________________________________________
+Extensions: ES7+ React/Redux/React-Native snippets
+
+We'll learn...dos and don'ts with state object:
+
+shortcuts:
+https://github.com/r5n-dev/vscode-react-javascript-snippets/blob/HEAD/docs/Snippets.md
+
+rce
+for:
+import React, { Component } from 'react'
+
+export class FileName extends Component {
+  render() {
+    return <div>$2</div>
+  }
+}
+
+export default $1
+
+__________________________________________________________________
+
+Destructuring props and state
+
+ES6 feature that makes it possible to unpack values from Array or properties from object into distinct variables.
+
+Destructuring in React improves code readability.
+
+__> 2 Ways to destructure props in a functional component.
+______1st way is to destructure it in functional paramter itself.
+
+eg: 
+export const Greet = ({name, profession}) => {
+    
+    return (
+        <div>
+            <h1>Hello {name}, you're great {profession} </h1>
+            
+    </div>
+     ) //curly braces to evaulate JSX expressions.
+    }
+
+______ 2nd Way is to destructure it in fucnction body.
+eg: // Destructuring in function body
+export const Greet = props => {
+    const {name, profession} = props
+    return (
+        <div>
+            <h1>
+                Hello {name} a.k.a {profession}
+            </h1>
+        </div>
+    )
+}
+
+__> Destructuring in Class Component.
+In class component we tend to destructure the props and state in render method.
+eg: // /Destructuring in Class Component
+    class Welcome extends Component{
+        render(){
+            const {name, profession} = this.props
+//for state:  const {state1, state2} = this.state
+            return <h1>
+                Welcome {name} tumtoh {profession}
+            </h1>
+        }
+    }
+___________________________________________________________________________
+
+EVENT HANDLING
+
+creating functional component using React Snippet rfce
+In React events are named using camelCaseConvention.
+	eg: onClick
+
+common mistake:
+	in onClick event we pass the function as event handler, no parenthesis, with parenthesis it'll become function call (that we don't want).
+
+We want handler to handle function, not a function call.
+
+If we leave the parenthesis, it won't work.
+
+In class component the things worsed as the click handler changes the state
+
+-> Event Handling in Functional Component
+eg:
+import React from 'react'
+
+function FunctionClick() {
+
+  function clickHandler(){
+    console.log('Button Clicked');  
+  }
+
+  return (
+    <div>
+        <button onClick = {clickHandler}>
+            Click Here
+        </button>
+    </div>
+  )
+}
+
+export default FunctionClick
+___________
+-> Event Handling in Class Component:
+import React, { Component } from 'react'
+
+export class ClassClick extends Component {
+
+    clickHandler() {
+        console.log('You clicked me');
+    }
+    
+  render() {
+    return (
+      <div>
+        <button onClick ={this.clickHandler}>
+            ClickMe
+        </button>
+      </div>
+    )
+  }
+}
+
+export default ClassClick
+__________________________________________________________
+HOW TO BIND EVENT HANDLERS
+
+-> Why to bind event handlers in React?
+	it's bcz of how this keyword works in JS, not bcz of how React works. 
+(Read Basics of *this* keyword: https://www.w3schools.com/js/js_this.asp)
+
+this keyword is undefined in Event Handlers.That's where binding came in picture.
+
+1st way:-> To use bind keyword (binding in render method) (THIS APPROACH HAS PERFORMANCE IMPLICATIONS, so probably you don't wanna use it).
+eg: <button onClick={this.clickHandler.bind(this)}>
+            Click
+        </button>
+(this approach can work for small applications as everytime a new event handler is generating, so in large applications where nested child components are there ..it would be create issues)
+
+2nd way:-> To use arrow functions in Render Method
+(easiest way to pass parameter)
+<button onClick={() => this.clickHandler()}>
+            ClickUsingArrowFunBind
+        </button>
+
+//React Documentation suggests either approach no. 3 or 4. (3RD APPROACH BEST)
+3rd way:-> binding the event handler in constructor instead of binding in Render Method.
+
+	constructor(props) {
+      super(props)
+    
+      this.state = {
+         message: "Hello"
+      }
+
+    //   Binding the *this* keyword in Event Handler inside constructor - 3rd approach of binding mentioned in official documentation of React.
+      this.clickHandler = this.clickHandler.bind(this)
+    }
+
+//React Documentation suggests either approach no. 3 or 4.
+4th way:-> (CLASS PROPERTY AS ARROW FUNCTIONS) to use an arrow function as a class property.(basically change the way you define method in the class)
+
+	clickHandler = () => {
+        this.setState({
+            message: "GoodBye Friends!"
+        })
+    }
+
+_______________________________________________________________________________________________________________________________________________
+Video15: Methods as Props
+(V.Imp.)
+
+(In earlier videos we've learned how a parent component can pass props to children component.)
+
+WHAT if a CHILD component want to communicate it's parent component?
+-> we'll use props
+
+(ES6 feature of concatenate the strings using bectics and dollars not with regular string concatenation.)
+eg: greetParent(){
+		alert(`Hello ${this.state.parentName}`)
+	}
+
+so eg: ChildComponent has a button and want to execute the method defined inside ParentComponent. So, ChildComponent calls ParentComponent method.
+using props only we'll do it here, but the only difference is this time we'll pass the method itself.
+
+eg: so here we are calling ParentComponent method from clicking the button inside ChildComponent by passing the method as props in ChildComponent.
+*ChildComponent.js*
+import React from 'react'
+function ChildComponent(props) {
+  return (
+    <div>
+        <button onClick = {props.greetHandler}>
+            Greet Parent
+        </button>
+    </div>
+  )
+}
+
+export default ChildComponent
+
+*ParentComponent.js*
+import React, { Component } from 'react'
+import ChildComponent from './ChildComponent'
+
+class ParentComponent extends Component {
+
+  constructor(props) {
+    super(props)
+  
+    this.state = {
+       parentName: "Parent"
+    }
+
+    this.greetParent = this.greetParent.bind(this)
+  }
+
+  greetParent(){
+    alert(`Hello ${this.state.parentName}`)
+  }
+// BUT as we are using This keyword in component so we need to bind the keyword.
+
+  render() {
+    return (
+      <div>
+        <ChildComponent greetHandler ={this.greetParent}/>
+      </div>
+    )
+  }
+}
+
+export default ParentComponent
+
+Note: An arrow function in return statement may be very useful, very easy to use syntax.
+Let's do it:
+onClick = {() => props.greetHandler()}
+and we can pass any number of parameters to greetHandler method.
+eg:
+ChildComponent:
+	<button onClick = {() => props.greetHandler("BABY")}>
+            Greet Parent
+        </button>
+
+ParentComponent
+	greetParent(childName){
+		alert(`Hello ${this.state.parentName} from ${childName}`)
+	}
+______________________________________________________________________________________________________________________________________________________
+CONDITIONAL RENDERING
+
+Just like conditions in JavaScript, we may use it for allow or hide some HTML.
+
+4 ways/approach of doing Conditional Rendering:
+	1). if/else
+	2). Element variables
+	3). Ternary conditional operator (Best Approach)
+	4). Short circuit operator
+_____________
+Can we use if/else condition on the message being displayed?
+Ans is no, if/else statements doesn't work inside JSX, that is because JSX is just syntactic sugar for function calls and object construction.
+______________
+Recommended is to stick on mostly on Ternary Operator or else Short circuit Operator.
+______________
+eg:
+UserGreeting.js Class component: we've displayed conditional rendering using these 4 approaches here:
+
+import React, { Component } from 'react'
+
+// Created UserGreeting component to learn conditional rendering.
+class UserGreeting extends Component {
+
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+        //  isLoggedIn: false
+        isLoggedIn: true
+      }
+    }
+
+  render() {
+
+    // 1st way: Conditional Rendering using if/else
+        // if(this.state.isLoggedIn){
+        //     return (
+        //         <div>
+        //             Welcome Nandini!
+        //         </div>
+        //     )
+        // } else{
+        //         return (
+        //             <div>
+        //                 Welcome Guest!
+        //             </div>
+        //         )
+        // }
+
+    // 2nd way: Conditional Rendering using element variables.
+        // let message 
+        // if(this.state.isLoggedIn){
+        //     message = <div>
+        //         Welcome Nandini!
+        //     </div>
+        // } else {
+        //     message = <div>
+        //         Welcome Guest!
+        //     </div>
+        // }
+
+        // return <div>{message}</div>
+
+        // 3rd way: Conditional rendering using Conditional Operator
+        // return (
+        //     this.state.isLoggedIn ? <div>Welcome Nandini!</div> : <div>Welcome Guest!</div>
+        // ) 
+
+        // 4th way: Conditional Rendering using short circuit operator
+        // Short circuit operator approach is just a short cut to ternary operator approach
+        // When you want to render something or nothing, we use short-circuit operator.
+        return this.state.isLoggedIn && <div>Welcome Nandini!</div>
+  }
+}
+
+export default UserGreeting
+______________________________________________________________________________________________________________________________________________________
+
+LIST RENDERING
+______
+
+(Repeat some html for each item in the list.)
+
+((like we use map method in JS for transforming the whole array elements in one go on behalf of certain condition applied.
+	eg: var array1 = [1, 4,9,16];
+		const map1 = array1.map(x => x*2);
+		console.log(map1);  //expected output: Array [2. 8, 18, 32]
+))
+
+eg: returning
+<div>
+        {/* map method is JS code, that needs to be evaulated so we'll use curly braces for it. */}
+        names.map(nameUsed => <h3>{nameUsed}</h3>)
+        }
+</div>
+
+
+eg: NameList.js Component
+import React from 'react'
+
+function NameList() {
+
+    const names = ["Sania", "Virat", "Merry"]
+    const nameList = names.map(nameUsed => <h3>{nameUsed}</h3>)
+
+    const persons = [
+        {
+            houseNo: 101,
+            age: 20,
+            skill: "React"
+        },
+        {
+            houseNo: 102,
+            age: 21,
+            skill: "Java"
+        },
+        {
+            houseNo: 103,
+            age: 22,
+            skill: "AI"
+        }
+    ]
+
+    const personList = persons.map(personThings => (<h2>My house no. is {personThings.houseNo}. My age is {personThings.age} and I am skilled in {personThings.skill}</h2> ))
+    
+  return (
+    // <div>
+    //     <h3>{names[0]}</h3>
+    //     <h3>{names[1]}</h3>
+    //     <h3>{names[2]}</h3>
+    // </div>
+    <div>
+        <div>
+            {
+                personList
+            }
+        </div>
+        {/* const personList = persons.map(personThings2 => <Person personThin) */}
+        <div>
+        {/* map method is JS code, that needs to be evaulated so we'll use curly braces for it. */}
+        {
+            nameList
+        }
+        </div>
+    </div>
+    
+
+  )
+}
+
+export default NameList
+
+-> There is nothing wrong in this approach but refractor JSX into a separate component.
+(using that another component as tag)
+->NameList.js
+const personList = persons.map(personThings => <Person personThings={personThings}></Person>)
+
+->Person.js
+import React from 'react'
+
+function Person({personThings}) {
+  return (
+    <div>
+            <h2>My house no. is {personThings.houseNo}. My age is {personThings.age} and I am skilled in {personThings.skill}</h2>
+    </div>
+  )
+}
+
+export default Person
+
+-> List component is responsible for rendering the list and Person component is responsible for rendering only Person html.
+
+****Error(WARNING) in console: react-jsx-dev-runtime.development.js:87 Warning: Each child in a list should have a unique "key" prop.
+
+_____________________________________________________________________________________________________________________________________________________
+
+Lists AND KEYS in REACT
+
+Warning: Each child in a list should have a unique "key" prop.
+
+Mean each time in the list rendered using the map operator should have a prop called key and the value to that prop should be unique within the list.
+
+(it's like primary key so whichever property is unique for all the elements of list, you can provide it as a key)
+
+Note: Key props isn't accessible in child component.
+eg: function Person({personThings, key}) {
+  return (
+    <div>
+            {key}<h2>My house no. is {personThings.houseNo}. My age is {personThings.age} and I am skilled in {personThings.skill}</h2>
+    </div>
+  )
+}
+will throw a warning in console like:
+Person.js:3 Warning: Person: `key` is not a prop. Trying to access it will result in `undefined` being returned. If you need to access the same value within the child component, you should pass it as a different prop.
+
+Note: Why we need keys with List?
+	A "key" is a special attribute you need to include when creating lists of elements.
+	keys give the elements a stable identity.
+	keys help React identify which items have changes, are added, or are removed.
+	helps in efficient update of the user interface.
+
+
+
+
+
+
+
+
+
+
+
+
+
