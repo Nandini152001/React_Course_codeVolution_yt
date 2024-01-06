@@ -12,7 +12,8 @@ import EventBind from './components/EventBind';
 import ParentComponent from './components/ParentComponent';
 import UserGreeting from './components/UserGreeting';
 import NameList from './components/NameList';
-
+import NameListIndex from './components/NameListIndex';
+import StyleSheet from './components/StyleSheet';
 
 function App() {
   return (
@@ -32,6 +33,8 @@ function App() {
       <ClassClick/> 
       <EventBind/>
       <NameList/>
+      <NameListIndex/>
+      <StyleSheet/>
     </div>
   );
 }
