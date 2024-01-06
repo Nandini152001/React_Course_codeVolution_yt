@@ -1,4 +1,5 @@
-npx is an npm package runner which install when we install node.
+https://github.com/Nandini152001/React_Course_codeVolution_yt/tree/react-learn-codeVolution
+___________________________________________________________________________npx is an npm package runner which install when we install node.
 
 2 ways to incorporate React into your project:
 1). npx create-react-app project_name
@@ -727,6 +728,33 @@ Note: Why we need keys with List?
 	keys give the elements a stable identity.
 	keys help React identify which items have changes, are added, or are removed.
 	helps in efficient update of the user interface.
+
+______________________________________________________________________________________________________________________________________________________
+
+Index as Key Anti-Pattern
+
+eg:
+	const names = ["Nandini","Sneha","Sneha"]
+	const nameList = names.map((name1, index) => <h2 key={index}>{index}{name1}</h2>)
+
+When to use index as key?
+	1). The items in your list do not have a unique id.
+	2). The list is a static list and will not change.
+	3). The list will never be reordered or filtered.
+
+______________________________________________________________________________________________________________________________________________________
+ Styling and CSS Basics
+
+Styling React Component
+	1). CSS stylesheets
+	2). Inline styling
+	3). CSS Modules
+	4). CSS in JS Libraries (styled component)
+
+
+
+
+
 
 
 
