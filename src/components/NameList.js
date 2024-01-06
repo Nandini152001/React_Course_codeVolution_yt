@@ -24,7 +24,7 @@ function NameList() {
     ]
 
     // const personList = persons.map(personThings => <Person personThings={personThings}></Person>)
-    const personList = persons.map(personThings => <Person key= "unique" personThings={personThings}></Person>)
+    const personList = persons.map(personThings => <Person key= {personThings.houseNo} personThings={personThings}></Person>)
     
   return (
     // <div>
