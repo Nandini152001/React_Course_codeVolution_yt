@@ -14,10 +14,17 @@ import UserGreeting from './components/UserGreeting';
 import NameList from './components/NameList';
 import NameListIndex from './components/NameListIndex';
 import StyleSheet from './components/StyleSheet';
-
+import Inline from './components/Inline';
+import "./components/appStyles.css"
+import styles from"./components/appStyles.module.css"
+import Form from './components/Form';
 function App() {
   return (
     <div className="App">
+
+      <h1 className='error'>Error</h1>
+      <h3 className={styles.success}>Success</h3>
+
       <ParentComponent/>
       <UserGreeting/>
       <Greet name="Bruce Lee" profession="Martial Artist and Actor"><p>This is children props</p> </Greet>
@@ -34,7 +41,9 @@ function App() {
       <EventBind/>
       <NameList/>
       <NameListIndex/>
-      <StyleSheet/>
+      <StyleSheet primary={false} />
+      <Inline/>
+      <Form />
     </div>
   );
 }

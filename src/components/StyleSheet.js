@@ -1,10 +1,12 @@
 import React from 'react'
 import "./MyStyles.css"
 
-function StyleSheet() {
+function StyleSheet(props) {
+  // conditonally apply the class based on props or state of the component.
+  let classNameVr = props.primary ? "primary" : ""
   return (
     <div >
-        <h2 className="Primary">StyleSheet</h2>
+        <h2 className={`${classNameVr} font-xl border`}>OTC Web App</h2>
     </div>
   )
 }
