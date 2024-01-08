@@ -751,17 +751,135 @@ Styling React Component
 	3). CSS Modules
 	4). CSS in JS Libraries (styled component)
 
+1). create one css file and import it in the file wanna apply in.
+
+	we can also Conditionally apply the css using props or state of the component.
+	Note: If you want to apply mutliple css to en element, you have to use bectics (``).
+
+2). Inline Styling
+	Create an object & apply it to style attribute.
+
+	camelCase for style name.
+	like: fontSize
+	eg: import React from 'react'
+
+	const heading = {
+    	fontSize: "45px",
+    	color: "green",
+	}
+	function Inline() {
+  	return (
+    	<div>
+        <h1 style={heading}>Inline</h1>
+    	</div>
+  	)
+	}
+
+	export default Inline
+
+3). CSS Modules
+	is available with React-scripts version 2 or higher.
+	
+	Naming Convention:
+		file name should be extend with .module.css 
+		
+	eg: appStyles.css is regular css file
+		and appStyles.module.css is CSS module file.
+	-> The way of importing these files in app.js is:
+		import "./components/appStyles.css"
+		import styles from"./components/appStyles.module.css"
+
+(Disadvantage: Classes are locally scoped by default.)
 
 
+______________________________________________________________________________________________________________________________________________________
 
+Basics of Form Handling
 
+Controlled components: React controlling form elements.
+	eg: this.state= {
+			email: ""
+		}
+	    this.changeEmailHandler = (event) => {
+		this.setState({email: event.traget.value})
+	    }
 
+	   <input type="text" value={this.state.email} onChange={this.changeEmailHandler} />
 
+eg:
+import React, { Component } from 'react'
 
+class Form extends Component {
 
+    constructor(props) {
+      super(props)
+    
+      this.state = {
+         userName: " ",
+         comments: " ",
+         topic: "react"
+      }
+    }
 
+    handleUserNameChange =(event) =>{
+        this.setState({
+            userName: event.target.value
+        })
+    }
 
+    handleCommentsChange = event =>{
+        this.setState({
+            // userName: event.target.value,
+            comments: event.target.value
+        })
+    }
 
+    handleTopicChange =event =>{
+        this.setState({
+            topic: event.target.value
+        })
+    }
+
+    handleSubmitForm = (event) =>{
+        alert(`${this.state.userName} ${this.state.comments} ${this.state.topic}`)
+        // to prevent the default behaviour of refreshing the page
+        event.preventDefault() 
+    }
+  render() {
+
+    const {userName, comments, topic} = this.state
+    return (
+
+    <form onSubmit={this.handleSubmitForm}>
+      <div>
+        <div>
+            <h1>Form Components</h1>
+            <label>UserName</label>
+            <input type='text' value={userName} onChange={this.handleUserNameChange}></input>
+        </div>
+        <div>
+            <label>Comments</label>
+            <textarea value={comments} onChange={this.handleCommentsChange}></textarea>
+        </div>
+        <div>
+            <label>Topic</label>
+            <select value={topic} onChange={this.handleTopicChange}>
+                <option value="react">React</option>
+                <option value="angular">Angular</option>
+                <option value="vue">Vue</option>
+            </select>
+        </div>
+      </div>
+      <button type='submit'>Submit</button>
+    </form>
+    )
+  }
+}
+
+export default Form
+______________________________________________________________________________________________________________________________________________________
+
+Lifecycle Methods
 
 
 
