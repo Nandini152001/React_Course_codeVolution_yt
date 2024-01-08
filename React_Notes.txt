@@ -881,8 +881,77 @@ ________________________________________________________________________________
 
 Lifecycle Methods
 
+React provide builtin methods.
+
+-> Lifecycle methods available for a a class component. (React Version 16.4 and above).
+	
+	Mounting
+	Updating
+	Unmounting
+	Error Handling
+
+Mounting: When an instance of a component is being created and inserted into the DOM.
+
+Updating: When a component is being re-rendered as a result of changes to either its props or state.
+
+Unmoounting: When a component is being removed from the DOM
+
+Error Handling: When there is an error during rendering, in a lifecycle method, or in the constructor of any child component.
+
+METHODS:
+	During Mounting: 4 methods
+		constructor, static getDerivedStateFromProps, render and componentDidMount
+	
+	During Updating: 5 methods
+		static getDerivedStateFromProps, shouldComponentUpdate, render, getSnapshotBeforeUpdate and componentDidUpdate
+
+	During Unmounting: 1 method
+		componentWillUnmount
+
+	During Error Handling: 2 methods
+		static getDerivedStateFromError and componentDidCatch
+
+______________________________________________________________________________________________________________________________________________________
+Mounting Lifecycle Methods
+
+-> constructor(props): A special function that will get called whenever a new component is created.
+	Initializing state
+	Binding the evenet Handlers
+	Do not cause side effects. Ex: HTTP requests.
+	super(props)
+	Directly overwrite this.state
+
+-> static getDerivedStateFromProps(props, state)
+	(Rarely used lifecycle methods)
+	: When the state of the component depends on changes in props over time.
+	Set the state
+	Do not cause side effects: Ex: HTTP requests
+	
+-> render method: Only required method in class component.
+	Read props & state and return JSX
+	Do not change state or interact with DOM or make ajax calls.
+	Children component lifecycle methods are also executed.
+
+-> componentDidMount:
+	Invoked immediately after a component and all its children components have been rendered to the DOM.
+	Cause side effects: Ex: Interact with the DOM or perform any ajax calls to load data.
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+______________________________________________________________________________________________________________________________________________________
 
 
